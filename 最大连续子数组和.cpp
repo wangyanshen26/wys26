@@ -1,20 +1,15 @@
 #include <stdio.h>
 
-int main() {
-    int n;
-    printf("ÇëÊäÈëÊı×éµÄ³¤¶È: ");
-    scanf("%d", &n);
-
-    int nums[1000];
-    printf("ÇëÊäÈëÊı×éÔªËØ: ");
-    for (int i = 0; i < n; i++) {
-        scanf("%d", &nums[i]);
-    }
-
-    int currentMax = 0; // µ±Ç°×î´ó×ÓÊı×éºÍ
-    int globalMax = 0; // È«¾Ö×î´ó×ÓÊı×éºÍ
+int Maxarry(int n, int* nums)
+{
+    int currentMax = 0; // å½“å‰æœ€å¤§å­æ•°ç»„å’Œ
+    int globalMax = 0; // å…¨å±€æœ€å¤§å­æ•°ç»„å’Œ
+    int hasPositive = 0; // æ˜¯å¦å­˜åœ¨æ­£æ•°
 
     for (int i = 0; i < n; i++) {
+        if (nums[i] > 0) {
+            hasPositive = 1; // å­˜åœ¨æ­£æ•°
+        }
         currentMax = currentMax + nums[i];
         if (currentMax < 0) {
             currentMax = 0;
@@ -24,7 +19,26 @@ int main() {
         }
     }
 
-    printf("×î´óÁ¬Ğø×ÓÊı×éºÍÎª: %d\n", globalMax);
+    // å¦‚æœæ•°ç»„ä¸­å‡ä¸ºè´Ÿæ•°ï¼Œåˆ™æœ€å¤§å­æ•°ç»„å’Œä¸º0
+    if (!hasPositive) {
+        globalMax = 0;
+    }
+
+    return globalMax;
+}
+
+int main() {
+    int n;
+    printf("è¯·è¾“å…¥æ•°ç»„çš„é•¿åº¦: ");
+    scanf("%d", &n);
+
+    int nums[1000];
+    printf("è¯·è¾“å…¥æ•°ç»„å…ƒç´ : ");
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &nums[i]);
+    }
+    int globalMax = Maxarry(n, nums);
+    printf("æœ€å¤§è¿ç»­å­æ•°ç»„å’Œä¸º: %d\n", globalMax);
 
     return 0;
 }
